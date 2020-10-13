@@ -13,7 +13,7 @@ import me.nov.threadtear.util.asm.Instructions;
 import me.nov.threadtear.util.reflection.DynamicReflection;
 import me.nov.threadtear.vm.*;
 
-public class AccessObfusationParamorphism extends Execution implements IVMReferenceHandler {
+public class AccessObfuscationParamorphism extends Execution implements IVMReferenceHandler {
 
   private static final String PARAMORPHISM_INVOKEDYNAMIC_HANDLE_DESC = "\\(Ljava/lang/invoke/MethodHandles\\$Lookup;" +
           "Ljava/lang/String;Ljava/lang/invoke/MethodType;[JI]+\\)Ljava/lang/invoke/CallSite;";
@@ -24,7 +24,7 @@ public class AccessObfusationParamorphism extends Execution implements IVMRefere
   private boolean verbose;
   private VM vm;
 
-  public AccessObfusationParamorphism() {
+  public AccessObfuscationParamorphism() {
     super(ExecutionCategory.PARAMORPHISM, "Access obfuscation removal",
             "Tested on version 2.1.<br>This is unfinished: Doesn't work on " +
                     "constructors and static initializers.", ExecutionTag.RUNNABLE, ExecutionTag.POSSIBLY_MALICIOUS);
@@ -39,10 +39,10 @@ public class AccessObfusationParamorphism extends Execution implements IVMRefere
     logger.info("Decrypting all invokedynamic references");
     logger.warning("Make sure all required libraries or dynamic classes are in the jar itself, or else some" +
             " invokedynamics cannot be deobfuscated!");
-    classes.values().stream().forEach(this::patchThrowableDepth);
+    classes.values().forEach(this::patchThrowableDepth);
     logger.info("Make sure to remove bad attributes first!");
     logger.info("Starting decryption, this could take some time!");
-    classes.values().stream().forEach(this::decrypt);
+    classes.values().forEach(this::decrypt);
     if (encrypted == 0) {
       logger.error("No access obfuscation matching Paramorphism 2.1 have been found!");
       return false;

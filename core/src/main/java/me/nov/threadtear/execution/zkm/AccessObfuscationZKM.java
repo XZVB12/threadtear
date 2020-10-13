@@ -26,7 +26,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public class AccessObfusationZKM extends Execution implements IVMReferenceHandler, IConstantReferenceHandler {
+public class AccessObfuscationZKM extends Execution implements IVMReferenceHandler, IConstantReferenceHandler {
 
   private static final String ZKM_INVOKEDYNAMIC_HANDLE_DESC = "(Ljava/lang/invoke/MethodHandles$Lookup;" +
     "Ljava/lang/String;Ljava/lang/invoke/MethodType;)Ljava/lang/invoke/CallSite;";
@@ -44,7 +44,7 @@ public class AccessObfusationZKM extends Execution implements IVMReferenceHandle
   private boolean verbose;
   private VM vm;
 
-  public AccessObfusationZKM() {
+  public AccessObfuscationZKM() {
     super(ExecutionCategory.ZKM, "Access obfuscation removal",
       "Tested on ZKM 8 - 11, could work on newer versions too.<br>Only works with " +
         "invokedynamic obfuscation for now.", ExecutionTag.RUNNABLE, ExecutionTag.POSSIBLY_MALICIOUS);
@@ -61,7 +61,7 @@ public class AccessObfusationZKM extends Execution implements IVMReferenceHandle
       " invokedynamics cannot be deobfuscated!");
     this.vm = VM.constructNonInitializingVM(this);
     this.vm.setDummyLoading(true);
-    classes.values().stream().forEach(this::decrypt);
+    classes.values().forEach(this::decrypt);
     if (encrypted == 0) {
       logger.error("No access obfuscation matching ZKM has been found!");
       return false;
